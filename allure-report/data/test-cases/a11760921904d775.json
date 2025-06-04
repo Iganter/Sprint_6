@@ -1,0 +1,688 @@
+{
+  "uid" : "a11760921904d775",
+  "name" : "Проверка позитивного сценария оформления заказа",
+  "fullName" : "tests.test_order_page.TestOrderPageOrder#test_order_all_fields_success",
+  "historyId" : "2c91ad7145b044a0d65277dab4d72be3",
+  "time" : {
+    "start" : 1748800954661,
+    "stop" : 1748800955251,
+    "duration" : 590
+  },
+  "description" : "Сквозное тестирование функциональности оформления заказа из двух точек входа",
+  "descriptionHtml" : "<p>Сквозное тестирование функциональности оформления заказа из двух точек входа</p>\n",
+  "status" : "skipped",
+  "statusMessage" : "XFAIL reason: На текущем стенде кнопка \"Да\" не работает, элемент \"Посмотреть статус\" не появляется\n\n_pytest.outcomes.XFailed: На текущем стенде кнопка \"Да\" не работает, элемент \"Посмотреть статус\" не появляется",
+  "statusTrace" : "self = <tests.test_order_page.TestOrderPageOrder object at 0x0000018BE8DD26F0>\ndriver = <selenium.webdriver.chrome.webdriver.WebDriver (session=\"976bc0300103d66fbf1e60db03475708\")>\nbutton = ('xpath', '//div[@class=\"Header_Nav__AGCXC\"]/button[text()=\"Заказать\"]')\ntest_data = ['Вася', 'Тестировщик', 'Питоново 5', 'Сокольники', '+79876543210', '25.06.2025', ...]\n\n    @allure.title('Проверка позитивного сценария оформления заказа')\n    @allure.description('Сквозное тестирование функциональности оформления заказа из двух точек входа')\n    @pytest.mark.parametrize('button, test_data', [(MainPageLocators.order_button_in_header, TestData.test_data_user1),\n                                                   (MainPageLocators.order_button_in_main, TestData.test_data_user2)])\n    def test_order_all_fields_success(self, driver, button, test_data):\n        order_page = OrderPage(driver)\n        order_page.scroll_to_element(button)\n        order_page.wait_visibility_of_element(button)\n        order_page.click_on_element(button)\n        order_page.data_entry_first_form(test_data)\n        order_page.data_entry_second_form(test_data)\n        try:\n>           assert order_page.check_displaying_of_button_check_status_of_order()\n\ntests\\test_order_page.py:22: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\npages\\order_page.py:52: in check_displaying_of_button_check_status_of_order\n    return self.check_displaying_of_element(OrderPageLocators.button_check_status_of_order)\npages\\base_page.py:44: in check_displaying_of_element\n    return self.driver.find_element(*locator).is_displayed()\n.venv\\Lib\\site-packages\\selenium\\webdriver\\remote\\webdriver.py:917: in find_element\n    return self.execute(Command.FIND_ELEMENT, {\"using\": by, \"value\": value})[\"value\"]\n.venv\\Lib\\site-packages\\selenium\\webdriver\\remote\\webdriver.py:448: in execute\n    self.error_handler.check_response(response)\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n\nself = <selenium.webdriver.remote.errorhandler.ErrorHandler object at 0x0000018BE8DD0CE0>\nresponse = {'status': 404, 'value': '{\"value\":{\"error\":\"no such element\",\"message\":\"no such element: Unable to locate element: {\\...47238A79+5401]\\\\n\\\\tBaseThreadInitThunk [0x00007FFE232C7374+20]\\\\n\\\\tRtlUserThreadStart [0x00007FFE2429CC91+33]\\\\n\"}}'}\n\n    def check_response(self, response: Dict[str, Any]) -> None:\n        \"\"\"Checks that a JSON response from the WebDriver does not have an\n        error.\n    \n        :Args:\n         - response - The JSON response from the WebDriver server as a dictionary\n           object.\n    \n        :Raises: If the response contains an error message.\n        \"\"\"\n        status = response.get(\"status\", None)\n        if not status or status == ErrorCode.SUCCESS:\n            return\n        value = None\n        message = response.get(\"message\", \"\")\n        screen: str = response.get(\"screen\", \"\")\n        stacktrace = None\n        if isinstance(status, int):\n            value_json = response.get(\"value\", None)\n            if value_json and isinstance(value_json, str):\n                import json\n    \n                try:\n                    value = json.loads(value_json)\n                    if len(value) == 1:\n                        value = value[\"value\"]\n                    status = value.get(\"error\", None)\n                    if not status:\n                        status = value.get(\"status\", ErrorCode.UNKNOWN_ERROR)\n                        message = value.get(\"value\") or value.get(\"message\")\n                        if not isinstance(message, str):\n                            value = message\n                            message = message.get(\"message\")\n                    else:\n                        message = value.get(\"message\", None)\n                except ValueError:\n                    pass\n    \n        exception_class: Type[WebDriverException]\n        e = ErrorCode()\n        error_codes = [item for item in dir(e) if not item.startswith(\"__\")]\n        for error_code in error_codes:\n            error_info = getattr(ErrorCode, error_code)\n            if isinstance(error_info, list) and status in error_info:\n                exception_class = getattr(ExceptionMapping, error_code, WebDriverException)\n                break\n        else:\n            exception_class = WebDriverException\n    \n        if not value:\n            value = response[\"value\"]\n        if isinstance(value, str):\n            raise exception_class(value)\n        if message == \"\" and \"message\" in value:\n            message = value[\"message\"]\n    \n        screen = None  # type: ignore[assignment]\n        if \"screen\" in value:\n            screen = value[\"screen\"]\n    \n        stacktrace = None\n        st_value = value.get(\"stackTrace\") or value.get(\"stacktrace\")\n        if st_value:\n            if isinstance(st_value, str):\n                stacktrace = st_value.split(\"\\n\")\n            else:\n                stacktrace = []\n                try:\n                    for frame in st_value:\n                        line = frame.get(\"lineNumber\", \"\")\n                        file = frame.get(\"fileName\", \"<anonymous>\")\n                        if line:\n                            file = f\"{file}:{line}\"\n                        meth = frame.get(\"methodName\", \"<anonymous>\")\n                        if \"className\" in frame:\n                            meth = f\"{frame['className']}.{meth}\"\n                        msg = \"    at %s (%s)\"\n                        msg = msg % (meth, file)\n                        stacktrace.append(msg)\n                except TypeError:\n                    pass\n        if exception_class == UnexpectedAlertPresentException:\n            alert_text = None\n            if \"data\" in value:\n                alert_text = value[\"data\"].get(\"text\")\n            elif \"alert\" in value:\n                alert_text = value[\"alert\"].get(\"text\")\n            raise exception_class(message, screen, stacktrace, alert_text)  # type: ignore[call-arg]  # mypy is not smart enough here\n>       raise exception_class(message, screen, stacktrace)\nE       selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {\"method\":\"xpath\",\"selector\":\".//*[text()=\"Посмотреть статус\"]\"}\nE         (Session info: chrome=136.0.7103.116); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception\nE       Stacktrace:\nE       \tGetHandleVerifier [0x00007FF64724A145+76773]\nE       \tGetHandleVerifier [0x00007FF64724A1A0+76864]\nE       \t(No symbol) [0x00007FF647008F7A]\nE       \t(No symbol) [0x00007FF64705F496]\nE       \t(No symbol) [0x00007FF64705F74C]\nE       \t(No symbol) [0x00007FF6470B2287]\nE       \t(No symbol) [0x00007FF64708739F]\nE       \t(No symbol) [0x00007FF6470AF0CF]\nE       \t(No symbol) [0x00007FF647087133]\nE       \t(No symbol) [0x00007FF6470504D1]\nE       \t(No symbol) [0x00007FF647051263]\nE       \tGetHandleVerifier [0x00007FF64750A8ED+2962317]\nE       \tGetHandleVerifier [0x00007FF647504EC2+2939234]\nE       \tGetHandleVerifier [0x00007FF647522FF3+3062419]\nE       \tGetHandleVerifier [0x00007FF647264B9A+185914]\nE       \tGetHandleVerifier [0x00007FF64726C78F+217647]\nE       \tGetHandleVerifier [0x00007FF647252A44+111844]\nE       \tGetHandleVerifier [0x00007FF647252BF2+112274]\nE       \tGetHandleVerifier [0x00007FF647238A79+5401]\nE       \tBaseThreadInitThunk [0x00007FFE232C7374+20]\nE       \tRtlUserThreadStart [0x00007FFE2429CC91+33]\n\n.venv\\Lib\\site-packages\\selenium\\webdriver\\remote\\errorhandler.py:232: NoSuchElementException\n\nDuring handling of the above exception, another exception occurred:\n\nself = <tests.test_order_page.TestOrderPageOrder object at 0x0000018BE8DD26F0>\ndriver = <selenium.webdriver.chrome.webdriver.WebDriver (session=\"976bc0300103d66fbf1e60db03475708\")>\nbutton = ('xpath', '//div[@class=\"Header_Nav__AGCXC\"]/button[text()=\"Заказать\"]')\ntest_data = ['Вася', 'Тестировщик', 'Питоново 5', 'Сокольники', '+79876543210', '25.06.2025', ...]\n\n    @allure.title('Проверка позитивного сценария оформления заказа')\n    @allure.description('Сквозное тестирование функциональности оформления заказа из двух точек входа')\n    @pytest.mark.parametrize('button, test_data', [(MainPageLocators.order_button_in_header, TestData.test_data_user1),\n                                                   (MainPageLocators.order_button_in_main, TestData.test_data_user2)])\n    def test_order_all_fields_success(self, driver, button, test_data):\n        order_page = OrderPage(driver)\n        order_page.scroll_to_element(button)\n        order_page.wait_visibility_of_element(button)\n        order_page.click_on_element(button)\n        order_page.data_entry_first_form(test_data)\n        order_page.data_entry_second_form(test_data)\n        try:\n            assert order_page.check_displaying_of_button_check_status_of_order()\n        except NoSuchElementException:\n>           pytest.xfail('На текущем стенде кнопка \"Да\" не работает, элемент \"Посмотреть статус\" не появляется')\nE           _pytest.outcomes.XFailed: На текущем стенде кнопка \"Да\" не работает, элемент \"Посмотреть статус\" не появляется\n\ntests\\test_order_page.py:24: XFailed",
+  "flaky" : false,
+  "beforeStages" : [ {
+    "name" : "driver",
+    "time" : {
+      "start" : 1748800951979,
+      "stop" : 1748800954660,
+      "duration" : 2681
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "hasContent" : false,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false
+  } ],
+  "testStage" : {
+    "description" : "Сквозное тестирование функциональности оформления заказа из двух точек входа",
+    "status" : "skipped",
+    "statusMessage" : "XFAIL reason: На текущем стенде кнопка \"Да\" не работает, элемент \"Посмотреть статус\" не появляется\n\n_pytest.outcomes.XFailed: На текущем стенде кнопка \"Да\" не работает, элемент \"Посмотреть статус\" не появляется",
+    "statusTrace" : "self = <tests.test_order_page.TestOrderPageOrder object at 0x0000018BE8DD26F0>\ndriver = <selenium.webdriver.chrome.webdriver.WebDriver (session=\"976bc0300103d66fbf1e60db03475708\")>\nbutton = ('xpath', '//div[@class=\"Header_Nav__AGCXC\"]/button[text()=\"Заказать\"]')\ntest_data = ['Вася', 'Тестировщик', 'Питоново 5', 'Сокольники', '+79876543210', '25.06.2025', ...]\n\n    @allure.title('Проверка позитивного сценария оформления заказа')\n    @allure.description('Сквозное тестирование функциональности оформления заказа из двух точек входа')\n    @pytest.mark.parametrize('button, test_data', [(MainPageLocators.order_button_in_header, TestData.test_data_user1),\n                                                   (MainPageLocators.order_button_in_main, TestData.test_data_user2)])\n    def test_order_all_fields_success(self, driver, button, test_data):\n        order_page = OrderPage(driver)\n        order_page.scroll_to_element(button)\n        order_page.wait_visibility_of_element(button)\n        order_page.click_on_element(button)\n        order_page.data_entry_first_form(test_data)\n        order_page.data_entry_second_form(test_data)\n        try:\n>           assert order_page.check_displaying_of_button_check_status_of_order()\n\ntests\\test_order_page.py:22: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\npages\\order_page.py:52: in check_displaying_of_button_check_status_of_order\n    return self.check_displaying_of_element(OrderPageLocators.button_check_status_of_order)\npages\\base_page.py:44: in check_displaying_of_element\n    return self.driver.find_element(*locator).is_displayed()\n.venv\\Lib\\site-packages\\selenium\\webdriver\\remote\\webdriver.py:917: in find_element\n    return self.execute(Command.FIND_ELEMENT, {\"using\": by, \"value\": value})[\"value\"]\n.venv\\Lib\\site-packages\\selenium\\webdriver\\remote\\webdriver.py:448: in execute\n    self.error_handler.check_response(response)\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n\nself = <selenium.webdriver.remote.errorhandler.ErrorHandler object at 0x0000018BE8DD0CE0>\nresponse = {'status': 404, 'value': '{\"value\":{\"error\":\"no such element\",\"message\":\"no such element: Unable to locate element: {\\...47238A79+5401]\\\\n\\\\tBaseThreadInitThunk [0x00007FFE232C7374+20]\\\\n\\\\tRtlUserThreadStart [0x00007FFE2429CC91+33]\\\\n\"}}'}\n\n    def check_response(self, response: Dict[str, Any]) -> None:\n        \"\"\"Checks that a JSON response from the WebDriver does not have an\n        error.\n    \n        :Args:\n         - response - The JSON response from the WebDriver server as a dictionary\n           object.\n    \n        :Raises: If the response contains an error message.\n        \"\"\"\n        status = response.get(\"status\", None)\n        if not status or status == ErrorCode.SUCCESS:\n            return\n        value = None\n        message = response.get(\"message\", \"\")\n        screen: str = response.get(\"screen\", \"\")\n        stacktrace = None\n        if isinstance(status, int):\n            value_json = response.get(\"value\", None)\n            if value_json and isinstance(value_json, str):\n                import json\n    \n                try:\n                    value = json.loads(value_json)\n                    if len(value) == 1:\n                        value = value[\"value\"]\n                    status = value.get(\"error\", None)\n                    if not status:\n                        status = value.get(\"status\", ErrorCode.UNKNOWN_ERROR)\n                        message = value.get(\"value\") or value.get(\"message\")\n                        if not isinstance(message, str):\n                            value = message\n                            message = message.get(\"message\")\n                    else:\n                        message = value.get(\"message\", None)\n                except ValueError:\n                    pass\n    \n        exception_class: Type[WebDriverException]\n        e = ErrorCode()\n        error_codes = [item for item in dir(e) if not item.startswith(\"__\")]\n        for error_code in error_codes:\n            error_info = getattr(ErrorCode, error_code)\n            if isinstance(error_info, list) and status in error_info:\n                exception_class = getattr(ExceptionMapping, error_code, WebDriverException)\n                break\n        else:\n            exception_class = WebDriverException\n    \n        if not value:\n            value = response[\"value\"]\n        if isinstance(value, str):\n            raise exception_class(value)\n        if message == \"\" and \"message\" in value:\n            message = value[\"message\"]\n    \n        screen = None  # type: ignore[assignment]\n        if \"screen\" in value:\n            screen = value[\"screen\"]\n    \n        stacktrace = None\n        st_value = value.get(\"stackTrace\") or value.get(\"stacktrace\")\n        if st_value:\n            if isinstance(st_value, str):\n                stacktrace = st_value.split(\"\\n\")\n            else:\n                stacktrace = []\n                try:\n                    for frame in st_value:\n                        line = frame.get(\"lineNumber\", \"\")\n                        file = frame.get(\"fileName\", \"<anonymous>\")\n                        if line:\n                            file = f\"{file}:{line}\"\n                        meth = frame.get(\"methodName\", \"<anonymous>\")\n                        if \"className\" in frame:\n                            meth = f\"{frame['className']}.{meth}\"\n                        msg = \"    at %s (%s)\"\n                        msg = msg % (meth, file)\n                        stacktrace.append(msg)\n                except TypeError:\n                    pass\n        if exception_class == UnexpectedAlertPresentException:\n            alert_text = None\n            if \"data\" in value:\n                alert_text = value[\"data\"].get(\"text\")\n            elif \"alert\" in value:\n                alert_text = value[\"alert\"].get(\"text\")\n            raise exception_class(message, screen, stacktrace, alert_text)  # type: ignore[call-arg]  # mypy is not smart enough here\n>       raise exception_class(message, screen, stacktrace)\nE       selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {\"method\":\"xpath\",\"selector\":\".//*[text()=\"Посмотреть статус\"]\"}\nE         (Session info: chrome=136.0.7103.116); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception\nE       Stacktrace:\nE       \tGetHandleVerifier [0x00007FF64724A145+76773]\nE       \tGetHandleVerifier [0x00007FF64724A1A0+76864]\nE       \t(No symbol) [0x00007FF647008F7A]\nE       \t(No symbol) [0x00007FF64705F496]\nE       \t(No symbol) [0x00007FF64705F74C]\nE       \t(No symbol) [0x00007FF6470B2287]\nE       \t(No symbol) [0x00007FF64708739F]\nE       \t(No symbol) [0x00007FF6470AF0CF]\nE       \t(No symbol) [0x00007FF647087133]\nE       \t(No symbol) [0x00007FF6470504D1]\nE       \t(No symbol) [0x00007FF647051263]\nE       \tGetHandleVerifier [0x00007FF64750A8ED+2962317]\nE       \tGetHandleVerifier [0x00007FF647504EC2+2939234]\nE       \tGetHandleVerifier [0x00007FF647522FF3+3062419]\nE       \tGetHandleVerifier [0x00007FF647264B9A+185914]\nE       \tGetHandleVerifier [0x00007FF64726C78F+217647]\nE       \tGetHandleVerifier [0x00007FF647252A44+111844]\nE       \tGetHandleVerifier [0x00007FF647252BF2+112274]\nE       \tGetHandleVerifier [0x00007FF647238A79+5401]\nE       \tBaseThreadInitThunk [0x00007FFE232C7374+20]\nE       \tRtlUserThreadStart [0x00007FFE2429CC91+33]\n\n.venv\\Lib\\site-packages\\selenium\\webdriver\\remote\\errorhandler.py:232: NoSuchElementException\n\nDuring handling of the above exception, another exception occurred:\n\nself = <tests.test_order_page.TestOrderPageOrder object at 0x0000018BE8DD26F0>\ndriver = <selenium.webdriver.chrome.webdriver.WebDriver (session=\"976bc0300103d66fbf1e60db03475708\")>\nbutton = ('xpath', '//div[@class=\"Header_Nav__AGCXC\"]/button[text()=\"Заказать\"]')\ntest_data = ['Вася', 'Тестировщик', 'Питоново 5', 'Сокольники', '+79876543210', '25.06.2025', ...]\n\n    @allure.title('Проверка позитивного сценария оформления заказа')\n    @allure.description('Сквозное тестирование функциональности оформления заказа из двух точек входа')\n    @pytest.mark.parametrize('button, test_data', [(MainPageLocators.order_button_in_header, TestData.test_data_user1),\n                                                   (MainPageLocators.order_button_in_main, TestData.test_data_user2)])\n    def test_order_all_fields_success(self, driver, button, test_data):\n        order_page = OrderPage(driver)\n        order_page.scroll_to_element(button)\n        order_page.wait_visibility_of_element(button)\n        order_page.click_on_element(button)\n        order_page.data_entry_first_form(test_data)\n        order_page.data_entry_second_form(test_data)\n        try:\n            assert order_page.check_displaying_of_button_check_status_of_order()\n        except NoSuchElementException:\n>           pytest.xfail('На текущем стенде кнопка \"Да\" не работает, элемент \"Посмотреть статус\" не появляется')\nE           _pytest.outcomes.XFailed: На текущем стенде кнопка \"Да\" не работает, элемент \"Посмотреть статус\" не появляется\n\ntests\\test_order_page.py:24: XFailed",
+    "steps" : [ {
+      "name" : "Скролл до элемента",
+      "time" : {
+        "start" : 1748800954661,
+        "stop" : 1748800954669,
+        "duration" : 8
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ {
+        "name" : "locator",
+        "value" : "('xpath', '//div[@class=\"Header_Nav__AGCXC\"]/button[text()=\"Заказать\"]')"
+      } ],
+      "stepsCount" : 0,
+      "hasContent" : true,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false
+    }, {
+      "name" : "Подождать прогрузки элемента",
+      "time" : {
+        "start" : 1748800954669,
+        "stop" : 1748800954675,
+        "duration" : 6
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ {
+        "name" : "locator",
+        "value" : "('xpath', '//div[@class=\"Header_Nav__AGCXC\"]/button[text()=\"Заказать\"]')"
+      } ],
+      "stepsCount" : 0,
+      "hasContent" : true,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false
+    }, {
+      "name" : "Кликнуть на элемент",
+      "time" : {
+        "start" : 1748800954675,
+        "stop" : 1748800954704,
+        "duration" : 29
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ {
+        "name" : "locator",
+        "value" : "('xpath', '//div[@class=\"Header_Nav__AGCXC\"]/button[text()=\"Заказать\"]')"
+      } ],
+      "stepsCount" : 0,
+      "hasContent" : true,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false
+    }, {
+      "name" : "Заполнение первой части формы и нажатие кнопки \"Далее\"",
+      "time" : {
+        "start" : 1748800954705,
+        "stop" : 1748800955010,
+        "duration" : 305
+      },
+      "status" : "passed",
+      "steps" : [ {
+        "name" : "Подождать прогрузки элемента",
+        "time" : {
+          "start" : 1748800954705,
+          "stop" : 1748800954715,
+          "duration" : 10
+        },
+        "status" : "passed",
+        "steps" : [ ],
+        "attachments" : [ ],
+        "parameters" : [ {
+          "name" : "locator",
+          "value" : "('xpath', '//input[@placeholder=\"* Имя\"]')"
+        } ],
+        "stepsCount" : 0,
+        "hasContent" : true,
+        "attachmentsCount" : 0,
+        "shouldDisplayMessage" : false
+      }, {
+        "name" : "Кликнуть на элемент",
+        "time" : {
+          "start" : 1748800954715,
+          "stop" : 1748800954741,
+          "duration" : 26
+        },
+        "status" : "passed",
+        "steps" : [ ],
+        "attachments" : [ ],
+        "parameters" : [ {
+          "name" : "locator",
+          "value" : "('xpath', '//input[@placeholder=\"* Имя\"]')"
+        } ],
+        "stepsCount" : 0,
+        "hasContent" : true,
+        "attachmentsCount" : 0,
+        "shouldDisplayMessage" : false
+      }, {
+        "name" : "Ввести значение в поле ввода",
+        "time" : {
+          "start" : 1748800954742,
+          "stop" : 1748800954759,
+          "duration" : 17
+        },
+        "status" : "passed",
+        "steps" : [ ],
+        "attachments" : [ ],
+        "parameters" : [ {
+          "name" : "locator",
+          "value" : "('xpath', '//input[@placeholder=\"* Имя\"]')"
+        }, {
+          "name" : "keys",
+          "value" : "'Вася'"
+        } ],
+        "stepsCount" : 0,
+        "hasContent" : true,
+        "attachmentsCount" : 0,
+        "shouldDisplayMessage" : false
+      }, {
+        "name" : "Кликнуть на элемент",
+        "time" : {
+          "start" : 1748800954759,
+          "stop" : 1748800954787,
+          "duration" : 28
+        },
+        "status" : "passed",
+        "steps" : [ ],
+        "attachments" : [ ],
+        "parameters" : [ {
+          "name" : "locator",
+          "value" : "('xpath', '//input[@placeholder=\"* Фамилия\"]')"
+        } ],
+        "stepsCount" : 0,
+        "hasContent" : true,
+        "attachmentsCount" : 0,
+        "shouldDisplayMessage" : false
+      }, {
+        "name" : "Ввести значение в поле ввода",
+        "time" : {
+          "start" : 1748800954787,
+          "stop" : 1748800954807,
+          "duration" : 20
+        },
+        "status" : "passed",
+        "steps" : [ ],
+        "attachments" : [ ],
+        "parameters" : [ {
+          "name" : "locator",
+          "value" : "('xpath', '//input[@placeholder=\"* Фамилия\"]')"
+        }, {
+          "name" : "keys",
+          "value" : "'Тестировщик'"
+        } ],
+        "stepsCount" : 0,
+        "hasContent" : true,
+        "attachmentsCount" : 0,
+        "shouldDisplayMessage" : false
+      }, {
+        "name" : "Кликнуть на элемент",
+        "time" : {
+          "start" : 1748800954807,
+          "stop" : 1748800954831,
+          "duration" : 24
+        },
+        "status" : "passed",
+        "steps" : [ ],
+        "attachments" : [ ],
+        "parameters" : [ {
+          "name" : "locator",
+          "value" : "('xpath', '//input[@placeholder=\"* Адрес: куда привезти заказ\"]')"
+        } ],
+        "stepsCount" : 0,
+        "hasContent" : true,
+        "attachmentsCount" : 0,
+        "shouldDisplayMessage" : false
+      }, {
+        "name" : "Ввести значение в поле ввода",
+        "time" : {
+          "start" : 1748800954831,
+          "stop" : 1748800954848,
+          "duration" : 17
+        },
+        "status" : "passed",
+        "steps" : [ ],
+        "attachments" : [ ],
+        "parameters" : [ {
+          "name" : "locator",
+          "value" : "('xpath', '//input[@placeholder=\"* Адрес: куда привезти заказ\"]')"
+        }, {
+          "name" : "keys",
+          "value" : "'Питоново 5'"
+        } ],
+        "stepsCount" : 0,
+        "hasContent" : true,
+        "attachmentsCount" : 0,
+        "shouldDisplayMessage" : false
+      }, {
+        "name" : "Кликнуть на элемент",
+        "time" : {
+          "start" : 1748800954848,
+          "stop" : 1748800954882,
+          "duration" : 34
+        },
+        "status" : "passed",
+        "steps" : [ ],
+        "attachments" : [ ],
+        "parameters" : [ {
+          "name" : "locator",
+          "value" : "('xpath', '//input[@placeholder=\"* Станция метро\"]')"
+        } ],
+        "stepsCount" : 0,
+        "hasContent" : true,
+        "attachmentsCount" : 0,
+        "shouldDisplayMessage" : false
+      }, {
+        "name" : "Ввести значение в поле ввода",
+        "time" : {
+          "start" : 1748800954882,
+          "stop" : 1748800954917,
+          "duration" : 35
+        },
+        "status" : "passed",
+        "steps" : [ ],
+        "attachments" : [ ],
+        "parameters" : [ {
+          "name" : "locator",
+          "value" : "('xpath', '//input[@placeholder=\"* Станция метро\"]')"
+        }, {
+          "name" : "keys",
+          "value" : "'Сокольники'"
+        } ],
+        "stepsCount" : 0,
+        "hasContent" : true,
+        "attachmentsCount" : 0,
+        "shouldDisplayMessage" : false
+      }, {
+        "name" : "Кликнуть на элемент",
+        "time" : {
+          "start" : 1748800954917,
+          "stop" : 1748800954946,
+          "duration" : 29
+        },
+        "status" : "passed",
+        "steps" : [ ],
+        "attachments" : [ ],
+        "parameters" : [ {
+          "name" : "locator",
+          "value" : "('xpath', './/li[@class=\"select-search__row\"]')"
+        } ],
+        "stepsCount" : 0,
+        "hasContent" : true,
+        "attachmentsCount" : 0,
+        "shouldDisplayMessage" : false
+      }, {
+        "name" : "Кликнуть на элемент",
+        "time" : {
+          "start" : 1748800954946,
+          "stop" : 1748800954969,
+          "duration" : 23
+        },
+        "status" : "passed",
+        "steps" : [ ],
+        "attachments" : [ ],
+        "parameters" : [ {
+          "name" : "locator",
+          "value" : "('xpath', '//input[@placeholder=\"* Телефон: на него позвонит курьер\"]')"
+        } ],
+        "stepsCount" : 0,
+        "hasContent" : true,
+        "attachmentsCount" : 0,
+        "shouldDisplayMessage" : false
+      }, {
+        "name" : "Ввести значение в поле ввода",
+        "time" : {
+          "start" : 1748800954969,
+          "stop" : 1748800954984,
+          "duration" : 15
+        },
+        "status" : "passed",
+        "steps" : [ ],
+        "attachments" : [ ],
+        "parameters" : [ {
+          "name" : "locator",
+          "value" : "('xpath', '//input[@placeholder=\"* Телефон: на него позвонит курьер\"]')"
+        }, {
+          "name" : "keys",
+          "value" : "'+79876543210'"
+        } ],
+        "stepsCount" : 0,
+        "hasContent" : true,
+        "attachmentsCount" : 0,
+        "shouldDisplayMessage" : false
+      }, {
+        "name" : "Кликнуть на элемент",
+        "time" : {
+          "start" : 1748800954984,
+          "stop" : 1748800955010,
+          "duration" : 26
+        },
+        "status" : "passed",
+        "steps" : [ ],
+        "attachments" : [ ],
+        "parameters" : [ {
+          "name" : "locator",
+          "value" : "('xpath', '//button[text()=\"Далее\"]')"
+        } ],
+        "stepsCount" : 0,
+        "hasContent" : true,
+        "attachmentsCount" : 0,
+        "shouldDisplayMessage" : false
+      } ],
+      "attachments" : [ ],
+      "parameters" : [ {
+        "name" : "test_data",
+        "value" : "['Вася', 'Тестировщик', 'Питоново 5', 'Сокольники', '+79876543210', '25.06.2025', 'Бонжур']"
+      } ],
+      "stepsCount" : 13,
+      "hasContent" : true,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false
+    }, {
+      "name" : "Заполнение второй части формы и окно подтверждения",
+      "time" : {
+        "start" : 1748800955010,
+        "stop" : 1748800955246,
+        "duration" : 236
+      },
+      "status" : "passed",
+      "steps" : [ {
+        "name" : "Подождать прогрузки элемента",
+        "time" : {
+          "start" : 1748800955010,
+          "stop" : 1748800955018,
+          "duration" : 8
+        },
+        "status" : "passed",
+        "steps" : [ ],
+        "attachments" : [ ],
+        "parameters" : [ {
+          "name" : "locator",
+          "value" : "('xpath', '//input[@placeholder=\"* Когда привезти самокат\"]')"
+        } ],
+        "stepsCount" : 0,
+        "hasContent" : true,
+        "attachmentsCount" : 0,
+        "shouldDisplayMessage" : false
+      }, {
+        "name" : "Кликнуть на элемент",
+        "time" : {
+          "start" : 1748800955018,
+          "stop" : 1748800955051,
+          "duration" : 33
+        },
+        "status" : "passed",
+        "steps" : [ ],
+        "attachments" : [ ],
+        "parameters" : [ {
+          "name" : "locator",
+          "value" : "('xpath', '//input[@placeholder=\"* Когда привезти самокат\"]')"
+        } ],
+        "stepsCount" : 0,
+        "hasContent" : true,
+        "attachmentsCount" : 0,
+        "shouldDisplayMessage" : false
+      }, {
+        "name" : "Ввести значение в поле ввода",
+        "time" : {
+          "start" : 1748800955051,
+          "stop" : 1748800955081,
+          "duration" : 30
+        },
+        "status" : "passed",
+        "steps" : [ ],
+        "attachments" : [ ],
+        "parameters" : [ {
+          "name" : "locator",
+          "value" : "('xpath', '//input[@placeholder=\"* Когда привезти самокат\"]')"
+        }, {
+          "name" : "keys",
+          "value" : "'25.06.2025'"
+        } ],
+        "stepsCount" : 0,
+        "hasContent" : true,
+        "attachmentsCount" : 0,
+        "shouldDisplayMessage" : false
+      }, {
+        "name" : "Кликнуть на элемент",
+        "time" : {
+          "start" : 1748800955082,
+          "stop" : 1748800955107,
+          "duration" : 25
+        },
+        "status" : "passed",
+        "steps" : [ ],
+        "attachments" : [ ],
+        "parameters" : [ {
+          "name" : "locator",
+          "value" : "('xpath', '//input[@id=\"grey\"]')"
+        } ],
+        "stepsCount" : 0,
+        "hasContent" : true,
+        "attachmentsCount" : 0,
+        "shouldDisplayMessage" : false
+      }, {
+        "name" : "Кликнуть на элемент",
+        "time" : {
+          "start" : 1748800955107,
+          "stop" : 1748800955131,
+          "duration" : 24
+        },
+        "status" : "passed",
+        "steps" : [ ],
+        "attachments" : [ ],
+        "parameters" : [ {
+          "name" : "locator",
+          "value" : "('xpath', './/div[text()=\"* Срок аренды\"]')"
+        } ],
+        "stepsCount" : 0,
+        "hasContent" : true,
+        "attachmentsCount" : 0,
+        "shouldDisplayMessage" : false
+      }, {
+        "name" : "Кликнуть на элемент",
+        "time" : {
+          "start" : 1748800955131,
+          "stop" : 1748800955158,
+          "duration" : 27
+        },
+        "status" : "passed",
+        "steps" : [ ],
+        "attachments" : [ ],
+        "parameters" : [ {
+          "name" : "locator",
+          "value" : "('xpath', './/div[@class=\"Dropdown-menu\"]/div[text()=\"трое суток\"]')"
+        } ],
+        "stepsCount" : 0,
+        "hasContent" : true,
+        "attachmentsCount" : 0,
+        "shouldDisplayMessage" : false
+      }, {
+        "name" : "Кликнуть на элемент",
+        "time" : {
+          "start" : 1748800955158,
+          "stop" : 1748800955182,
+          "duration" : 24
+        },
+        "status" : "passed",
+        "steps" : [ ],
+        "attachments" : [ ],
+        "parameters" : [ {
+          "name" : "locator",
+          "value" : "('xpath', '//input[@placeholder=\"Комментарий для курьера\"]')"
+        } ],
+        "stepsCount" : 0,
+        "hasContent" : true,
+        "attachmentsCount" : 0,
+        "shouldDisplayMessage" : false
+      }, {
+        "name" : "Ввести значение в поле ввода",
+        "time" : {
+          "start" : 1748800955183,
+          "stop" : 1748800955196,
+          "duration" : 13
+        },
+        "status" : "passed",
+        "steps" : [ ],
+        "attachments" : [ ],
+        "parameters" : [ {
+          "name" : "locator",
+          "value" : "('xpath', '//input[@placeholder=\"Комментарий для курьера\"]')"
+        }, {
+          "name" : "keys",
+          "value" : "'Бонжур'"
+        } ],
+        "stepsCount" : 0,
+        "hasContent" : true,
+        "attachmentsCount" : 0,
+        "shouldDisplayMessage" : false
+      }, {
+        "name" : "Кликнуть на элемент",
+        "time" : {
+          "start" : 1748800955196,
+          "stop" : 1748800955218,
+          "duration" : 22
+        },
+        "status" : "passed",
+        "steps" : [ ],
+        "attachments" : [ ],
+        "parameters" : [ {
+          "name" : "locator",
+          "value" : "('xpath', '//div[contains(@class, \"Order_Buttons\")]/button[text()=\"Заказать\"]')"
+        } ],
+        "stepsCount" : 0,
+        "hasContent" : true,
+        "attachmentsCount" : 0,
+        "shouldDisplayMessage" : false
+      }, {
+        "name" : "Подождать прогрузки элемента",
+        "time" : {
+          "start" : 1748800955218,
+          "stop" : 1748800955225,
+          "duration" : 7
+        },
+        "status" : "passed",
+        "steps" : [ ],
+        "attachments" : [ ],
+        "parameters" : [ {
+          "name" : "locator",
+          "value" : "('xpath', '//button[text()=\"Да\"]')"
+        } ],
+        "stepsCount" : 0,
+        "hasContent" : true,
+        "attachmentsCount" : 0,
+        "shouldDisplayMessage" : false
+      }, {
+        "name" : "Кликнуть на элемент",
+        "time" : {
+          "start" : 1748800955226,
+          "stop" : 1748800955246,
+          "duration" : 20
+        },
+        "status" : "passed",
+        "steps" : [ ],
+        "attachments" : [ ],
+        "parameters" : [ {
+          "name" : "locator",
+          "value" : "('xpath', '//button[text()=\"Да\"]')"
+        } ],
+        "stepsCount" : 0,
+        "hasContent" : true,
+        "attachmentsCount" : 0,
+        "shouldDisplayMessage" : false
+      } ],
+      "attachments" : [ ],
+      "parameters" : [ {
+        "name" : "test_data",
+        "value" : "['Вася', 'Тестировщик', 'Питоново 5', 'Сокольники', '+79876543210', '25.06.2025', 'Бонжур']"
+      } ],
+      "stepsCount" : 11,
+      "hasContent" : true,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false
+    }, {
+      "name" : "Проверить отображение кнопки \"Посмотреть статус\" после создания заказа",
+      "time" : {
+        "start" : 1748800955246,
+        "stop" : 1748800955251,
+        "duration" : 5
+      },
+      "status" : "broken",
+      "statusMessage" : "selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {\"method\":\"xpath\",\"selector\":\".//*[text()=\"Посмотреть статус\"]\"}\n  (Session info: chrome=136.0.7103.116); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception\nStacktrace:\n\tGetHandleVerifier [0x00007FF64724A145+76773]\n\tGetHandleVerifier [0x00007FF64724A1A0+76864]\n\t(No symbol) [0x00007FF647008F7A]\n\t(No symbol) [0x00007FF64705F496]\n\t(No symbol) [0x00007FF64705F74C]\n\t(No symbol) [0x00007FF6470B2287]\n\t(No symbol) [0x00007FF64708739F]\n\t(No symbol) [0x00007FF6470AF0CF]\n\t(No symbol) [0x00007FF647087133]\n\t(No symbol) [0x00007FF6470504D1]\n\t(No symbol) [0x00007FF647051263]\n\tGetHandleVerifier [0x00007FF64750A8ED+2962317]\n\tGetHandleVerifier [0x00007FF647504EC2+2939234]\n\tGetHandleVerifier [0x00007FF647522FF3+3062419]\n\tGetHandleVerifier [0x00007FF647264B9A+185914]\n\tGetHandleVerifier [0x00007FF64726C78F+217647]\n\tGetHandleVerifier [0x00007FF647252A44+111844]\n\tGetHandleVerifier [0x00007FF647252BF2+112274]\n\tGetHandleVerifier [0x00007FF647238A79+5401]\n\tBaseThreadInitThunk [0x00007FFE232C7374+20]\n\tRtlUserThreadStart [0x00007FFE2429CC91+33]\n\n",
+      "statusTrace" : "  File \"C:\\Users\\Kirill\\PycharmProjects\\Practicum\\Sprint_6\\.venv\\Lib\\site-packages\\allure_commons\\_allure.py\", line 202, in impl\n    return func(*a, **kw)\n           ^^^^^^^^^^^^^^\n  File \"C:\\Users\\Kirill\\PycharmProjects\\Practicum\\Sprint_6\\pages\\order_page.py\", line 52, in check_displaying_of_button_check_status_of_order\n    return self.check_displaying_of_element(OrderPageLocators.button_check_status_of_order)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Kirill\\PycharmProjects\\Practicum\\Sprint_6\\.venv\\Lib\\site-packages\\allure_commons\\_allure.py\", line 202, in impl\n    return func(*a, **kw)\n           ^^^^^^^^^^^^^^\n  File \"C:\\Users\\Kirill\\PycharmProjects\\Practicum\\Sprint_6\\pages\\base_page.py\", line 44, in check_displaying_of_element\n    return self.driver.find_element(*locator).is_displayed()\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Kirill\\PycharmProjects\\Practicum\\Sprint_6\\.venv\\Lib\\site-packages\\selenium\\webdriver\\remote\\webdriver.py\", line 917, in find_element\n    return self.execute(Command.FIND_ELEMENT, {\"using\": by, \"value\": value})[\"value\"]\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Kirill\\PycharmProjects\\Practicum\\Sprint_6\\.venv\\Lib\\site-packages\\selenium\\webdriver\\remote\\webdriver.py\", line 448, in execute\n    self.error_handler.check_response(response)\n  File \"C:\\Users\\Kirill\\PycharmProjects\\Practicum\\Sprint_6\\.venv\\Lib\\site-packages\\selenium\\webdriver\\remote\\errorhandler.py\", line 232, in check_response\n    raise exception_class(message, screen, stacktrace)\n",
+      "steps" : [ {
+        "name" : "Проверить отображение элемента",
+        "time" : {
+          "start" : 1748800955246,
+          "stop" : 1748800955250,
+          "duration" : 4
+        },
+        "status" : "broken",
+        "statusMessage" : "selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {\"method\":\"xpath\",\"selector\":\".//*[text()=\"Посмотреть статус\"]\"}\n  (Session info: chrome=136.0.7103.116); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception\nStacktrace:\n\tGetHandleVerifier [0x00007FF64724A145+76773]\n\tGetHandleVerifier [0x00007FF64724A1A0+76864]\n\t(No symbol) [0x00007FF647008F7A]\n\t(No symbol) [0x00007FF64705F496]\n\t(No symbol) [0x00007FF64705F74C]\n\t(No symbol) [0x00007FF6470B2287]\n\t(No symbol) [0x00007FF64708739F]\n\t(No symbol) [0x00007FF6470AF0CF]\n\t(No symbol) [0x00007FF647087133]\n\t(No symbol) [0x00007FF6470504D1]\n\t(No symbol) [0x00007FF647051263]\n\tGetHandleVerifier [0x00007FF64750A8ED+2962317]\n\tGetHandleVerifier [0x00007FF647504EC2+2939234]\n\tGetHandleVerifier [0x00007FF647522FF3+3062419]\n\tGetHandleVerifier [0x00007FF647264B9A+185914]\n\tGetHandleVerifier [0x00007FF64726C78F+217647]\n\tGetHandleVerifier [0x00007FF647252A44+111844]\n\tGetHandleVerifier [0x00007FF647252BF2+112274]\n\tGetHandleVerifier [0x00007FF647238A79+5401]\n\tBaseThreadInitThunk [0x00007FFE232C7374+20]\n\tRtlUserThreadStart [0x00007FFE2429CC91+33]\n\n",
+        "statusTrace" : "  File \"C:\\Users\\Kirill\\PycharmProjects\\Practicum\\Sprint_6\\.venv\\Lib\\site-packages\\allure_commons\\_allure.py\", line 202, in impl\n    return func(*a, **kw)\n           ^^^^^^^^^^^^^^\n  File \"C:\\Users\\Kirill\\PycharmProjects\\Practicum\\Sprint_6\\pages\\base_page.py\", line 44, in check_displaying_of_element\n    return self.driver.find_element(*locator).is_displayed()\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Kirill\\PycharmProjects\\Practicum\\Sprint_6\\.venv\\Lib\\site-packages\\selenium\\webdriver\\remote\\webdriver.py\", line 917, in find_element\n    return self.execute(Command.FIND_ELEMENT, {\"using\": by, \"value\": value})[\"value\"]\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Kirill\\PycharmProjects\\Practicum\\Sprint_6\\.venv\\Lib\\site-packages\\selenium\\webdriver\\remote\\webdriver.py\", line 448, in execute\n    self.error_handler.check_response(response)\n  File \"C:\\Users\\Kirill\\PycharmProjects\\Practicum\\Sprint_6\\.venv\\Lib\\site-packages\\selenium\\webdriver\\remote\\errorhandler.py\", line 232, in check_response\n    raise exception_class(message, screen, stacktrace)\n",
+        "steps" : [ ],
+        "attachments" : [ ],
+        "parameters" : [ {
+          "name" : "locator",
+          "value" : "('xpath', './/*[text()=\"Посмотреть статус\"]')"
+        } ],
+        "stepsCount" : 0,
+        "hasContent" : true,
+        "attachmentsCount" : 0,
+        "shouldDisplayMessage" : true
+      } ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 1,
+      "hasContent" : true,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false
+    } ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 31,
+    "hasContent" : true,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : true
+  },
+  "afterStages" : [ {
+    "name" : "driver::0",
+    "time" : {
+      "start" : 1748800955299,
+      "stop" : 1748800957375,
+      "duration" : 2076
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "hasContent" : false,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false
+  } ],
+  "labels" : [ {
+    "name" : "parentSuite",
+    "value" : "tests"
+  }, {
+    "name" : "suite",
+    "value" : "test_order_page"
+  }, {
+    "name" : "subSuite",
+    "value" : "TestOrderPageOrder"
+  }, {
+    "name" : "host",
+    "value" : "DESKTOP-47CL42P"
+  }, {
+    "name" : "thread",
+    "value" : "31384-MainThread"
+  }, {
+    "name" : "framework",
+    "value" : "pytest"
+  }, {
+    "name" : "language",
+    "value" : "cpython3"
+  }, {
+    "name" : "package",
+    "value" : "tests.test_order_page"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure2"
+  } ],
+  "parameters" : [ {
+    "name" : "button",
+    "value" : "('xpath', '//div[@class=\"Header_Nav__AGCXC\"]/button[text()=\"Заказать\"]')"
+  }, {
+    "name" : "test_data",
+    "value" : "['Вася', 'Тестировщик', 'Питоново 5', 'Сокольники', '+79876543210', '25.06.2025', 'Бонжур']"
+  } ],
+  "links" : [ ],
+  "hidden" : false,
+  "retry" : false,
+  "extra" : {
+    "severity" : "normal",
+    "retries" : [ ],
+    "categories" : [ ],
+    "tags" : [ ]
+  },
+  "source" : "a11760921904d775.json",
+  "parameterValues" : [ "('xpath', '//div[@class=\"Header_Nav__AGCXC\"]/button[text()=\"Заказать\"]')", "['Вася', 'Тестировщик', 'Питоново 5', 'Сокольники', '+79876543210', '25.06.2025', 'Бонжур']" ]
+}

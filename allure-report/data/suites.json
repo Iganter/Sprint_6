@@ -1,0 +1,177 @@
+{
+  "uid" : "98d3104e051c652961429bf95fa0b5d6",
+  "name" : "suites",
+  "children" : [ {
+    "name" : "tests",
+    "children" : [ {
+      "name" : "test_logo_click",
+      "children" : [ {
+        "name" : "TestLogo",
+        "children" : [ {
+          "name" : "Проверка перехода на главную страницу сервиса при клике на лого \"Самокат\" в шапке",
+          "uid" : "8a07bdbbccb71932",
+          "parentUid" : "8c38e7fae88053067d1edc84dbb968cc",
+          "status" : "passed",
+          "time" : {
+            "start" : 1748800894322,
+            "stop" : 1748800894436,
+            "duration" : 114
+          },
+          "flaky" : false,
+          "parameters" : [ ]
+        }, {
+          "name" : "Проверка перехода на страницу \"Дзена\" при клике на лого \"Яндекс\"",
+          "uid" : "1cb23e17f088059c",
+          "parentUid" : "8c38e7fae88053067d1edc84dbb968cc",
+          "status" : "passed",
+          "time" : {
+            "start" : 1748800898983,
+            "stop" : 1748800905660,
+            "duration" : 6677
+          },
+          "flaky" : false,
+          "parameters" : [ ]
+        } ],
+        "uid" : "8c38e7fae88053067d1edc84dbb968cc"
+      } ],
+      "uid" : "6c32fea82b9d12311f6e31b22cf02109"
+    }, {
+      "name" : "test_main_page",
+      "children" : [ {
+        "name" : "TestMainPageFaq",
+        "children" : [ {
+          "name" : "Проверка раздела \"Вопросы о важном\"",
+          "uid" : "f120efe7ac144bc0",
+          "parentUid" : "dc29f67cb84bcada268aa2585a8b943e",
+          "status" : "passed",
+          "time" : {
+            "start" : 1748800910981,
+            "stop" : 1748800911042,
+            "duration" : 61
+          },
+          "flaky" : false,
+          "parameters" : [ "'Сутки — 400 рублей. Оплата курьеру — наличными или картой.'", "1" ]
+        }, {
+          "name" : "Проверка раздела \"Вопросы о важном\"",
+          "uid" : "783973268ba5cc62",
+          "parentUid" : "dc29f67cb84bcada268aa2585a8b943e",
+          "status" : "passed",
+          "time" : {
+            "start" : 1748800915724,
+            "stop" : 1748800915787,
+            "duration" : 63
+          },
+          "flaky" : false,
+          "parameters" : [ "'Пока что у нас так: один заказ — один самокат. Если хотите покататься с друзьями, можете просто сделать несколько заказов — один за другим.'", "2" ]
+        }, {
+          "name" : "Проверка раздела \"Вопросы о важном\"",
+          "uid" : "b5694a2eb1c7acc6",
+          "parentUid" : "dc29f67cb84bcada268aa2585a8b943e",
+          "status" : "passed",
+          "time" : {
+            "start" : 1748800920577,
+            "stop" : 1748800920635,
+            "duration" : 58
+          },
+          "flaky" : false,
+          "parameters" : [ "'Допустим, вы оформляете заказ на 8 мая. Мы привозим самокат 8 мая в течение дня. Отсчёт времени аренды начинается с момента, когда вы оплатите заказ курьеру. Если мы привезли самокат 8 мая в 20:30, суточная аренда закончится 9 мая в 20:30.'", "3" ]
+        }, {
+          "name" : "Проверка раздела \"Вопросы о важном\"",
+          "uid" : "654e56507ab7b981",
+          "parentUid" : "dc29f67cb84bcada268aa2585a8b943e",
+          "status" : "passed",
+          "time" : {
+            "start" : 1748800929189,
+            "stop" : 1748800929249,
+            "duration" : 60
+          },
+          "flaky" : false,
+          "parameters" : [ "'Только начиная с завтрашнего дня. Но скоро станем расторопнее.'", "4" ]
+        }, {
+          "name" : "Проверка раздела \"Вопросы о важном\"",
+          "uid" : "10294791478ef3ec",
+          "parentUid" : "dc29f67cb84bcada268aa2585a8b943e",
+          "status" : "passed",
+          "time" : {
+            "start" : 1748800934749,
+            "stop" : 1748800934808,
+            "duration" : 59
+          },
+          "flaky" : false,
+          "parameters" : [ "'Пока что нет! Но если что-то срочное — всегда можно позвонить в поддержку по красивому номеру 1010.'", "5" ]
+        }, {
+          "name" : "Проверка раздела \"Вопросы о важном\"",
+          "uid" : "11167bec02243e0a",
+          "parentUid" : "dc29f67cb84bcada268aa2585a8b943e",
+          "status" : "passed",
+          "time" : {
+            "start" : 1748800939653,
+            "stop" : 1748800939713,
+            "duration" : 60
+          },
+          "flaky" : false,
+          "parameters" : [ "'Самокат приезжает к вам с полной зарядкой. Этого хватает на восемь суток — даже если будете кататься без передышек и во сне. Зарядка не понадобится.'", "6" ]
+        }, {
+          "name" : "Проверка раздела \"Вопросы о важном\"",
+          "uid" : "6aa1cd07780bc8c6",
+          "parentUid" : "dc29f67cb84bcada268aa2585a8b943e",
+          "status" : "passed",
+          "time" : {
+            "start" : 1748800944808,
+            "stop" : 1748800944871,
+            "duration" : 63
+          },
+          "flaky" : false,
+          "parameters" : [ "'Да, пока самокат не привезли. Штрафа не будет, объяснительной записки тоже не попросим. Все же свои.'", "7" ]
+        }, {
+          "name" : "Проверка раздела \"Вопросы о важном\"",
+          "uid" : "a3a42975179b2023",
+          "parentUid" : "dc29f67cb84bcada268aa2585a8b943e",
+          "status" : "passed",
+          "time" : {
+            "start" : 1748800949836,
+            "stop" : 1748800949896,
+            "duration" : 60
+          },
+          "flaky" : false,
+          "parameters" : [ "'Да, обязательно. Всем самокатов! И Москве, и Московской области.'", "8" ]
+        } ],
+        "uid" : "dc29f67cb84bcada268aa2585a8b943e"
+      } ],
+      "uid" : "53dc9839f0ae196392ca488e17f7beec"
+    }, {
+      "name" : "test_order_page",
+      "children" : [ {
+        "name" : "TestOrderPageOrder",
+        "children" : [ {
+          "name" : "Проверка позитивного сценария оформления заказа",
+          "uid" : "a11760921904d775",
+          "parentUid" : "14bb238715bb3259ea53cc46b8d0b7cc",
+          "status" : "skipped",
+          "time" : {
+            "start" : 1748800954661,
+            "stop" : 1748800955251,
+            "duration" : 590
+          },
+          "flaky" : false,
+          "parameters" : [ "('xpath', '//div[@class=\"Header_Nav__AGCXC\"]/button[text()=\"Заказать\"]')", "['Вася', 'Тестировщик', 'Питоново 5', 'Сокольники', '+79876543210', '25.06.2025', 'Бонжур']" ]
+        }, {
+          "name" : "Проверка позитивного сценария оформления заказа",
+          "uid" : "44a6557ddd0441fa",
+          "parentUid" : "14bb238715bb3259ea53cc46b8d0b7cc",
+          "status" : "skipped",
+          "time" : {
+            "start" : 1748800960615,
+            "stop" : 1748800961199,
+            "duration" : 584
+          },
+          "flaky" : false,
+          "parameters" : [ "('xpath', '//div[contains(@class, \"Home_FinishButton\")]/button')", "['Леонид', 'Разработчик', 'Айтишников 10', 'Пушкинская', '89104512716', '31.12.2025', 'С нг']" ]
+        } ],
+        "uid" : "14bb238715bb3259ea53cc46b8d0b7cc"
+      } ],
+      "uid" : "15bd8633a9e86bb1ab40171d422e0f89"
+    } ],
+    "uid" : "e387fa4bb326b54ea8c19c2822aba374"
+  } ]
+}

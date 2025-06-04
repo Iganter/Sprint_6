@@ -1,0 +1,281 @@
+{
+  "uid" : "783973268ba5cc62",
+  "name" : "Проверка раздела \"Вопросы о важном\"",
+  "fullName" : "tests.test_main_page.TestMainPageFaq#test_click_faq_expand_icons_text_is_expected",
+  "historyId" : "87104d1d8944320097cdba77ed25c988",
+  "time" : {
+    "start" : 1748800915724,
+    "stop" : 1748800915787,
+    "duration" : 63
+  },
+  "description" : "Проверка появления нужного текста при нажатии на каждую иконку развертывания в разделе",
+  "descriptionHtml" : "<p>Проверка появления нужного текста при нажатии на каждую иконку развертывания в разделе</p>\n",
+  "status" : "passed",
+  "flaky" : false,
+  "beforeStages" : [ {
+    "name" : "driver",
+    "time" : {
+      "start" : 1748800913129,
+      "stop" : 1748800915723,
+      "duration" : 2594
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "hasContent" : false,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false
+  } ],
+  "testStage" : {
+    "description" : "Проверка появления нужного текста при нажатии на каждую иконку развертывания в разделе",
+    "status" : "passed",
+    "steps" : [ {
+      "name" : "Проскроллить до секции \"Вопросы о важном\"",
+      "time" : {
+        "start" : 1748800915724,
+        "stop" : 1748800915733,
+        "duration" : 9
+      },
+      "status" : "passed",
+      "steps" : [ {
+        "name" : "Скролл до элемента",
+        "time" : {
+          "start" : 1748800915724,
+          "stop" : 1748800915733,
+          "duration" : 9
+        },
+        "status" : "passed",
+        "steps" : [ ],
+        "attachments" : [ ],
+        "parameters" : [ {
+          "name" : "locator",
+          "value" : "('xpath', '//div[contains(@class, \"Home_FAQ\")]')"
+        } ],
+        "stepsCount" : 0,
+        "hasContent" : true,
+        "attachmentsCount" : 0,
+        "shouldDisplayMessage" : false
+      } ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 1,
+      "hasContent" : true,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false
+    }, {
+      "name" : "Подождать прогрузки нужного номера вопроса в аккордеоне \"Вопросы о важном\"",
+      "time" : {
+        "start" : 1748800915733,
+        "stop" : 1748800915743,
+        "duration" : 10
+      },
+      "status" : "passed",
+      "steps" : [ {
+        "name" : "Подождать прогрузки элемента",
+        "time" : {
+          "start" : 1748800915733,
+          "stop" : 1748800915743,
+          "duration" : 10
+        },
+        "status" : "passed",
+        "steps" : [ ],
+        "attachments" : [ ],
+        "parameters" : [ {
+          "name" : "locator",
+          "value" : "['xpath', '//div[@id=\"accordion__heading-1\"]/parent::div']"
+        } ],
+        "stepsCount" : 0,
+        "hasContent" : true,
+        "attachmentsCount" : 0,
+        "shouldDisplayMessage" : false
+      } ],
+      "attachments" : [ ],
+      "parameters" : [ {
+        "name" : "data",
+        "value" : "2"
+      } ],
+      "stepsCount" : 1,
+      "hasContent" : true,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false
+    }, {
+      "name" : "Кликнуть на нужный номер вопроса в аккордеоне \"Вопросы о важном\"",
+      "time" : {
+        "start" : 1748800915743,
+        "stop" : 1748800915771,
+        "duration" : 28
+      },
+      "status" : "passed",
+      "steps" : [ {
+        "name" : "Кликнуть на элемент",
+        "time" : {
+          "start" : 1748800915743,
+          "stop" : 1748800915771,
+          "duration" : 28
+        },
+        "status" : "passed",
+        "steps" : [ ],
+        "attachments" : [ ],
+        "parameters" : [ {
+          "name" : "locator",
+          "value" : "['xpath', '//div[@id=\"accordion__heading-1\"]/parent::div']"
+        } ],
+        "stepsCount" : 0,
+        "hasContent" : true,
+        "attachmentsCount" : 0,
+        "shouldDisplayMessage" : false
+      } ],
+      "attachments" : [ ],
+      "parameters" : [ {
+        "name" : "data",
+        "value" : "2"
+      } ],
+      "stepsCount" : 1,
+      "hasContent" : true,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false
+    }, {
+      "name" : "Подождать прогрузки нужного номера ответа в аккордеоне \"Вопросы о важном\"",
+      "time" : {
+        "start" : 1748800915771,
+        "stop" : 1748800915779,
+        "duration" : 8
+      },
+      "status" : "passed",
+      "steps" : [ {
+        "name" : "Подождать прогрузки элемента",
+        "time" : {
+          "start" : 1748800915771,
+          "stop" : 1748800915779,
+          "duration" : 8
+        },
+        "status" : "passed",
+        "steps" : [ ],
+        "attachments" : [ ],
+        "parameters" : [ {
+          "name" : "locator",
+          "value" : "('xpath', '//div[@id=\"accordion__panel-1\"]')"
+        } ],
+        "stepsCount" : 0,
+        "hasContent" : true,
+        "attachmentsCount" : 0,
+        "shouldDisplayMessage" : false
+      } ],
+      "attachments" : [ ],
+      "parameters" : [ {
+        "name" : "data",
+        "value" : "2"
+      } ],
+      "stepsCount" : 1,
+      "hasContent" : true,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false
+    }, {
+      "name" : "Получить текст нужного номера ответа в аккордеоне \"Вопросы о важном\"",
+      "time" : {
+        "start" : 1748800915779,
+        "stop" : 1748800915787,
+        "duration" : 8
+      },
+      "status" : "passed",
+      "steps" : [ {
+        "name" : "Получить текст на элементе",
+        "time" : {
+          "start" : 1748800915779,
+          "stop" : 1748800915787,
+          "duration" : 8
+        },
+        "status" : "passed",
+        "steps" : [ ],
+        "attachments" : [ ],
+        "parameters" : [ {
+          "name" : "locator",
+          "value" : "('xpath', '//div[@id=\"accordion__panel-1\"]')"
+        } ],
+        "stepsCount" : 0,
+        "hasContent" : true,
+        "attachmentsCount" : 0,
+        "shouldDisplayMessage" : false
+      } ],
+      "attachments" : [ ],
+      "parameters" : [ {
+        "name" : "data",
+        "value" : "2"
+      } ],
+      "stepsCount" : 1,
+      "hasContent" : true,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false
+    } ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 10,
+    "hasContent" : true,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false
+  },
+  "afterStages" : [ {
+    "name" : "driver::0",
+    "time" : {
+      "start" : 1748800915788,
+      "stop" : 1748800917872,
+      "duration" : 2084
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "hasContent" : false,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false
+  } ],
+  "labels" : [ {
+    "name" : "parentSuite",
+    "value" : "tests"
+  }, {
+    "name" : "suite",
+    "value" : "test_main_page"
+  }, {
+    "name" : "subSuite",
+    "value" : "TestMainPageFaq"
+  }, {
+    "name" : "host",
+    "value" : "DESKTOP-47CL42P"
+  }, {
+    "name" : "thread",
+    "value" : "31384-MainThread"
+  }, {
+    "name" : "framework",
+    "value" : "pytest"
+  }, {
+    "name" : "language",
+    "value" : "cpython3"
+  }, {
+    "name" : "package",
+    "value" : "tests.test_main_page"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure2"
+  } ],
+  "parameters" : [ {
+    "name" : "expected_answer",
+    "value" : "'Пока что у нас так: один заказ — один самокат. Если хотите покататься с друзьями, можете просто сделать несколько заказов — один за другим.'"
+  }, {
+    "name" : "question_number",
+    "value" : "2"
+  } ],
+  "links" : [ ],
+  "hidden" : false,
+  "retry" : false,
+  "extra" : {
+    "severity" : "normal",
+    "retries" : [ ],
+    "categories" : [ ],
+    "tags" : [ ]
+  },
+  "source" : "783973268ba5cc62.json",
+  "parameterValues" : [ "'Пока что у нас так: один заказ — один самокат. Если хотите покататься с друзьями, можете просто сделать несколько заказов — один за другим.'", "2" ]
+}
