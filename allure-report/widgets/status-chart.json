@@ -1,0 +1,121 @@
+[ {
+  "uid" : "6aa1cd07780bc8c6",
+  "name" : "Проверка раздела \"Вопросы о важном\"",
+  "time" : {
+    "start" : 1748800944808,
+    "stop" : 1748800944871,
+    "duration" : 63
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "a11760921904d775",
+  "name" : "Проверка позитивного сценария оформления заказа",
+  "time" : {
+    "start" : 1748800954661,
+    "stop" : 1748800955251,
+    "duration" : 590
+  },
+  "status" : "skipped",
+  "severity" : "normal"
+}, {
+  "uid" : "654e56507ab7b981",
+  "name" : "Проверка раздела \"Вопросы о важном\"",
+  "time" : {
+    "start" : 1748800929189,
+    "stop" : 1748800929249,
+    "duration" : 60
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "10294791478ef3ec",
+  "name" : "Проверка раздела \"Вопросы о важном\"",
+  "time" : {
+    "start" : 1748800934749,
+    "stop" : 1748800934808,
+    "duration" : 59
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "783973268ba5cc62",
+  "name" : "Проверка раздела \"Вопросы о важном\"",
+  "time" : {
+    "start" : 1748800915724,
+    "stop" : 1748800915787,
+    "duration" : 63
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "44a6557ddd0441fa",
+  "name" : "Проверка позитивного сценария оформления заказа",
+  "time" : {
+    "start" : 1748800960615,
+    "stop" : 1748800961199,
+    "duration" : 584
+  },
+  "status" : "skipped",
+  "severity" : "normal"
+}, {
+  "uid" : "1cb23e17f088059c",
+  "name" : "Проверка перехода на страницу \"Дзена\" при клике на лого \"Яндекс\"",
+  "time" : {
+    "start" : 1748800898983,
+    "stop" : 1748800905660,
+    "duration" : 6677
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "8a07bdbbccb71932",
+  "name" : "Проверка перехода на главную страницу сервиса при клике на лого \"Самокат\" в шапке",
+  "time" : {
+    "start" : 1748800894322,
+    "stop" : 1748800894436,
+    "duration" : 114
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "b5694a2eb1c7acc6",
+  "name" : "Проверка раздела \"Вопросы о важном\"",
+  "time" : {
+    "start" : 1748800920577,
+    "stop" : 1748800920635,
+    "duration" : 58
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "f120efe7ac144bc0",
+  "name" : "Проверка раздела \"Вопросы о важном\"",
+  "time" : {
+    "start" : 1748800910981,
+    "stop" : 1748800911042,
+    "duration" : 61
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "a3a42975179b2023",
+  "name" : "Проверка раздела \"Вопросы о важном\"",
+  "time" : {
+    "start" : 1748800949836,
+    "stop" : 1748800949896,
+    "duration" : 60
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "11167bec02243e0a",
+  "name" : "Проверка раздела \"Вопросы о важном\"",
+  "time" : {
+    "start" : 1748800939653,
+    "stop" : 1748800939713,
+    "duration" : 60
+  },
+  "status" : "passed",
+  "severity" : "normal"
+} ]
